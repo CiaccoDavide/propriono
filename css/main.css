@@ -33,7 +33,7 @@ a:hover {
 	text-decoration: none;
 	text-shadow:#000 1px 1px 0px;
 }
-h1 {
+h1{
 	color: rgba(255,255,255,1);
 	font: 50px 'Helvetica Neue', Arial, sans-serif;
 	margin-left:10px;
@@ -122,8 +122,8 @@ links cont:hover{
 	bottom:0;
 	right:0;
 	left:180px;
-	height:60px;
 	background-color:#2a2a2a;
+	overflow: auto;
 }
 #main form{
 	padding: 20px;
@@ -156,7 +156,7 @@ links cont:hover{
 	letter-spacing: 1px;
     color: #fff;
 	margin: 10px;
-}#main #desc{resize:both;height:66px;}#main select{height:30px;width: 308px;}
+}#main #desc{resize:both;height:66px;}#main select{height:30px;width: 308px;}#main textarea{height: 60px}
 #main input[type=radio]{width:auto;height:auto;border:0;box-shadow:none;}
 #main input[type=submit]{
 	position:relative;
@@ -376,3 +376,35 @@ back{
 
 
 #cred{display:none;}
+
+.super,.sub{background: #303030;}
+.super{padding:0;}.sub{padding:0 0 3px 18px}
+#elenco_categorie form{height: auto;padding:0;margin: 0;display:inline;}
+#elenco_categorie input{
+	position:relative;
+	
+	width:300px;
+	height:14px;
+    outline: none;
+    padding: 2px;
+ 
+    border: 1px solid #4e3043; 
+    border: 1px solid rgba(0,0,0, 0.8);
+    background: rgba(0,0,0,0.15);
+    border-radius: 3px;
+    box-shadow: 
+        1px 1px 0 rgba(255,255,255,0.2), 
+        inset 0 1px 1px rgba(0,0,0,0.1);
+ 
+   
+    font: 14px 'Helvetica Neue', Arial, sans-serif;
+	font-weight: 100;
+	letter-spacing: 1px;
+    color: #fff;
+	margin: 0px;
+}
+select{padding:0;font-size:16px}
+select option{background: rgba(0,0,0,0.8);}
+
+#dab{background:rgba(255, 88, 96,0.1);color:#fff;}
+#good{background:rgba(56, 239, 139,0.1);color:#fff;}

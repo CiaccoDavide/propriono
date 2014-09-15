@@ -91,19 +91,19 @@
 	<a href="./?p=categorie"><cont>Categorie</cont></a>
 </links>
 <div id="main">
-		<p>&nbsp&nbsp&nbsp- <a id="apriform" href="">Crea un nuovo conto.</a></p>
-	<div id="creaconto">
+	<p>&nbsp&nbsp&nbsp- <a id="apriform" href="">Crea un nuovo conto.</a></p>
+	<div id="creaconto"><br>
 		<div id="newconto" name="send" method="post" action="crea_conto.php">
 			<p>Tipo del conto:</p>
 
-			<input id="dp" type="radio" name="tipo" value="deposito" checked>Conto di deposito<br>
-			<input id="ct" type="radio" name="tipo" value="credito">Conto di credito<br>
+			<input id="dp" type="radio" name="tipo" value="deposito" checked>Conto di deposito
+			<input id="ct" type="radio" name="tipo" value="credito">Conto di credito
 
 			<div id="debi">
 				<form id="newcontod" name="sendd" method="post" action="crea_conto.php?tipo=deposito">
 					<p>Ammontare iniziale [€]:</p>
 					<input id="ammontare" type="number" name="ammontare" placeholder="Ammontare" required="required"/><br>
-					<input id="sndb" type="submit" name="msgsend" value="Apri Conto">
+					<input id="sndb" type="submit" name="msgsend" value="Apri conto di deposito">
 				</form>
 			</div>
 
@@ -115,15 +115,13 @@
 						<option selected="selected" disabled="disabled" value="">Seleziona un deposito</option>
 						'.lista_conti($_SESSION['id_utente'],'seldep').'
 					</select><br>
-						<input id="sndb" type="submit" name="msgsend" value="Apri Conto">
+						<input id="sndb" type="submit" name="msgsend" value="Apri conto di credito">
 				</form>
 			</div>
-
-</div>
-			
-		
+		</div>	
 	</div>
 	<br>
+
 	<p>Lista dei conti di deposito attivi:</p>
 	<div class="lista_conti">'.lista_conti($_SESSION['id_utente'],'deposito').'</div>
 	<br>
@@ -160,38 +158,48 @@
 </links>
 <div id="main">
 		<p>&nbsp&nbsp&nbsp- <a id="apriform" href="">Crea una nuova transazione.</a></p>
-	<div id="creatransazione">
+	<div id="creatransazione"><br>
 		<div id="newtrans" name="send" method="post" action="crea_transazione.php">
 			<p>Tipo del conto su cui applicare la transazione:</p>
-			<input id="dp" type="radio" name="tipo" value="deposito" checked>Conto di deposito<br>
+			<input id="dp" type="radio" name="tipo" value="deposito" checked>Conto di deposito
 			<input id="ct" type="radio" name="tipo" value="credito">Conto di credito<br>
 
 			<div id="debi">
 				<form id="newtransd" name="sendd" method="post" action="crea_transazione.php?tipo=deposito">
-					<select id="associato" name="associato" required>
-						<option selected="selected" disabled="disabled" value="">Seleziona un Deposito</option>
-						'.lista_conti($_SESSION['id_utente'],'selcre').'
+					<p>Seleziona un conto di Credito:</p>
+					<select id="idconto" name="idconto" required>
+						<option selected="selected" disabled="disabled" value=""> - </option>
+						'.lista_conti($_SESSION['id_utente'],'seldep').'
 					</select><br>
-					<select id="tipotrans" name="tipotrans" required>
-						<option value="spesa">Spesa</option>
-						<option value="entrata">Entrata</option>
-					</select><br>
+
+					<p>Natura della transazione:</p>
+					<input type="radio" name="tipotrans" value="spesa" checked>Spesa
+					<input type="radio" name="tipotrans" value="credito">Entrata<br>
+
 					<p>Entità economica della transazione [€]:</p>
 					<input id="ammontare" type="number" name="ammontare" placeholder="Ammontare" required="required"/><br>
-					'.lista_cats($_SESSION['id_utente']).'<br>
+					<p>Descrizione:</p>
+					<textarea name="descrizione" rows="4" cols="50" required></textarea>
+					'.selezione_cats($_SESSION['id_utente']).'<br>
+					<p>Data della transazione:</p>
+					<input type="date" name="data" min="'.oggi().'" value="'.oggi().'"><br>
 					<input id="sndb" type="submit" name="msgsend" value="Aggiungi transazione">
 				</form>
 			</div>
 
 			<div id="cred">
-				<form id="newcontoc" name="sendc" method="post" action="crea_transazione.php?tipo=credito">
-					<p>Tetto massimo [€]:</p>
-					<input id="tetto" type="number" name="ammontare" placeholder="Tetto massimo" required="required"/><br>
-					<select id="associato" name="associato" required>
-						<option selected="selected" disabled="disabled" value="">Seleziona un deposito</option>
-						'.lista_conti($_SESSION['id_utente'],'seldep').'
+				<form id="newtransd" name="sendd" method="post" action="crea_transazione.php?tipo=credito">
+					<p>Seleziona un conto di Credito:</p>
+					<select id="idconto" name="idconto" required>
+						<option selected="selected" disabled="disabled" value=""> - </option>
+						'.lista_conti($_SESSION['id_utente'],'selcre').'
 					</select><br>
-						<input id="sndb" type="submit" name="msgsend" value="Apri Conto">
+					<p>Entità economica della transazione [€]:</p>
+					<input id="ammontare" type="number" name="ammontare" placeholder="Ammontare" required="required"/><br>
+					<p>Descrizione:</p>
+					<textarea name="desc" rows="4" cols="50" required></textarea>
+					'.selezione_cats($_SESSION['id_utente']).'<br>
+					<input id="sndb" type="submit" name="msgsend" value="Aggiungi transazione">
 				</form>
 			</div>
 
@@ -200,11 +208,9 @@
 		
 	</div>
 	<br>
-	<p>Lista dei conti di deposito attivi:</p>
-	<div class="lista_conti">'.lista_conti($_SESSION['id_utente'],'deposito').'</div>
+	<p>Lista delle transazioni:</p><br>
+	<div class="lista_conti">'.lista_transazioni($_SESSION['id_utente']).'</div>
 	<br>
-	<p>Lista dei conti di credito attivi:</p>
-	<div class="lista_conti">'.lista_conti($_SESSION['id_utente'],'credito').'</div>
 
 </div>
 <script>
@@ -267,8 +273,53 @@
 	<a href="./?p=categorie"><cont class="active">Categorie</cont></a>
 </links>
 <div id="main">
-		'.lista_cats($_SESSION['id_utente']).'
+	'.lista_cats($_SESSION['id_utente']).'
+
+	<p>&nbsp&nbsp&nbsp- <a id="apriform" href="">Aggiungi una nuova categoria.</a></p>
+	<div id="creaconto">
+		<div id="newconto" name="send" method="post" action="crea_conto.php">
+			<br><p>Tipo della categoria:</p>
+			<input id="dp" type="radio" name="tipo" value="super" checked>Categoria<br>
+			<input id="ct" type="radio" name="tipo" value="sub">Sotto-categoria<br>
+
+			<div id="superc">
+				<form id="newcatsuper" name="sendd" method="post" action="crea_cat.php?tipo=super">
+					<p>Nome:</p>
+					<input id="nome" type="text" name="nome" placeholder="Nome della categoria" required="required"/><br>
+					<input id="sndb" type="submit" name="msgsend" value="Crea categoria">
+				</form>
+			</div>
+
+			<div id="subc">
+				<form id="newcatsub" name="sendc" method="post" action="crea_cat.php?tipo=sub">
+					<p>Nome:</p>
+					<input id="nome" type="text" name="nome" placeholder="Nome della categoria" required="required"/><br>
+					<p>Seleziona una categoria madre:</p>
+					<select id="madre" name="madre" required>
+						<option selected="selected" disabled="disabled" value="">Seleziona una categoria madre</option>
+						'.selezione_supercats($_SESSION['id_utente']).'
+					</select><br>
+						<input id="sndb" type="submit" name="msgsend" value="Crea sotto-categoria">
+				</form>
+			</div>
+		</div>	
+	</div>
+
 </div>
+<script>
+	$(document).ready(function(){
+		$("#creaconto").toggle();$("#subc").hide("fast");
+		//apri/chiudi il form per un nuovo conto
+		$(function() {
+		    $(document).on(\'click\', \'#apriform\', function(e) {
+		       	$("#creaconto").slideToggle();
+		       e.preventDefault();
+		    });
+		});
+		$("#dp").click(function(){$("#subc").hide("fast");$("#superc").show("fast");});
+		$("#ct").click(function(){$("#subc").show("fast");$("#superc").hide("fast");});
+	});
+</script>
 					';
 					break;
 			}
